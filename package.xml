@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>c1t_vesc_driver</name>
+  <version>0.0.0</version>
+  <description>The c1t_vesc_driver package</description>
+
+  <author email="adam.morrissett.ctr@dot.gov">Adam Morrissett</author>
+  <maintainer email="carma@dot.gov">CARMA</maintainer>
+
+  <license>TODO</license>
+
+  <depend>cav_driver_utils</depend>
+  <depend>cav_msgs</depend>
+  <depend>vesc_ackermann</depend>
+  <depend>vesc_driver</depend>
+  <depend>vesc_msgs</depend>
+  <depend>autoware_msgs</depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+
+  <export>
+  </export>
+</package>

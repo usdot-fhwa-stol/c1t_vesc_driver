@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- VESC wrapper that interfaces with CARMA -->
+    <node name="c1t_vesc_driver" pkg="c1t_vesc_driver" type="c1t_vesc_driver_node" output="screen">
+        <remap from="vehicle_cmd" to="controller/vehicle_cmd"/>
+        <remap from="enable_robotic" to="controller/enable_robotic"/>
+        <remap from="robot_status" to="controller/robot_status"/>
+        <remap from="ackermann_cmd" to="controller/ackermann_cmd"/>
+    </node>
+
+    <group ns="controller">
+        <!-- Param file includes parameters for both message converter and VESC driver nodes -->
+        <arg name="vesc_config" default="$(find c1t_vesc_driver)/config/vesc.yaml"/>
+        <rosparam file="$(arg vesc_config)" command="load"/>
+
+        <!-- Converts AckermannDriveStamped messages into corresponding motor and servo commands -->
+        <node name="ackermann_to_vesc" pkg="vesc_ackermann" type="ackermann_to_vesc_node" output="screen"/>
+
+        <!-- Actual VESC driver -->
+        <node name="vesc_driver" pkg="vesc_driver" type="vesc_driver_node" output="screen">
+            <param name="port" value="/dev/vesc"/>
+        </node>
+    </group>
+</launch>

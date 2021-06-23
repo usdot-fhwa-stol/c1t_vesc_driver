@@ -1,0 +1,2 @@
+# Timeout threshold for core sensors
+sensors_core_timeout: 0.2
