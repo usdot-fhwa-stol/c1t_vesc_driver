@@ -4,6 +4,7 @@
 #include <autoware_msgs/VehicleCmd.h>
 #include <cav_msgs/RobotEnabled.h>
 #include <cav_srvs/SetEnableRobotic.h>
+#include <vesc_msgs/VescStateStamped.h>
 
 VescDriverWrapper::VescDriverWrapper(int argc, char** argv, const std::string& name)
   : cav::DriverWrapper(argc, argv, name)
@@ -13,6 +14,8 @@ VescDriverWrapper::VescDriverWrapper(int argc, char** argv, const std::string& n
 void VescDriverWrapper::initialize()
 {
   status_.controller = true;
+
+  private_nh_->param<double>("sensors_core_timeout", sensors_core_timeout_, 0.0);
 
   vehicle_cmd_sub_ = nh_->subscribe<autoware_msgs::VehicleCmd>(
       "vehicle_cmd", 1, [this](const autoware_msgs::VehicleCmd::ConstPtr& msg) {
@@ -26,6 +29,12 @@ void VescDriverWrapper::initialize()
 
           this->ackermann_pub_.publish(vesc_msg);
         }
+      });
+
+  sensors_core_sub_ = nh_->subscribe<vesc_msgs::VescStateStamped>(
+      "sensors/core", 1, [this](const vesc_msgs::VescStateStamped::ConstPtr& msg) {
+        this->last_upate_time_ = ros::Time::now();
+        this->status_.status = cav_msgs::DriverStatus::OPERATIONAL;
       });
 
   ackermann_pub_ = nh_->advertise<ackermann_msgs::AckermannDriveStamped>("ackermann_cmd", 1);
@@ -80,7 +89,7 @@ bool VescDriverWrapper::enableRoboticCallback(cav_srvs::SetEnableRobotic::Reques
 
 void VescDriverWrapper::checkVescTimeout()
 {
-  if (last_upate_time_.isZero() || ros::Time::now() - last_upate_time_ > ros::Duration(vesc_timeout_))
+  if (last_upate_time_.isZero() || ros::Time::now() - last_upate_time_ > ros::Duration(sensors_core_timeout_))
   {
     status_.status = cav_msgs::DriverStatus::OFF;
   }

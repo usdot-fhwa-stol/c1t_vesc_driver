@@ -42,11 +42,12 @@ private:
   ros::Publisher ackermann_pub_;
   ros::Publisher robot_states_pub_;
   ros::Subscriber vehicle_cmd_sub_;
+  ros::Subscriber sensors_core_sub_;
   ros::ServiceServer enable_robotic_srv_;
 
   ros::Timer robot_status_timer_;  // Drives robot_status topic publishing
   ros::Time last_upate_time_;  // Used to check for VESC timeouts
-  double vesc_timeout_ = 0.0;  // Timeout threshold
+  double sensors_core_timeout_ = 0.0;  // Timeout threshold for VESC reporting
   bool enabled_ = false;  // If controller is enabled
 
   /**

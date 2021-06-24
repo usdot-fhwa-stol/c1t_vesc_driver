@@ -7,6 +7,8 @@
         <remap from="enable_robotic" to="controller/enable_robotic"/>
         <remap from="robot_status" to="controller/robot_status"/>
         <remap from="ackermann_cmd" to="controller/ackermann_cmd"/>
+        <remap from="sensors/core" to="controller/sensors/core"/>
+        <rosparam command="load" file="$(find c1t_vesc_driver)/config/parameters.yaml"/>
     </node>
 
     <group ns="controller">
