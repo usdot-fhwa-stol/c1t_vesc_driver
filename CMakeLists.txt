@@ -7,6 +7,10 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   cav_driver_utils
   cav_msgs
+  vesc_ackermann
+  vesc_driver
+  vesc_msgs
+  autoware_msgs
 )
 
 ###################################
