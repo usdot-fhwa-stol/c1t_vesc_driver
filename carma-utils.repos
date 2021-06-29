@@ -1,0 +1,5 @@
+repositories:
+  carma-utisl:
+    type: git
+    url: https://github.com/usdot-fhwa-stol/carma-utils.git
+    version: develop

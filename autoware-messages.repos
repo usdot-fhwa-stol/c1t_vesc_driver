@@ -1,0 +1,17 @@
+repositories:
+  messages:
+    type: git
+    url: https://github.com/Autoware-AI/messages.git
+    version: master
+  jsk_recognition:
+    type: git
+    url: https://github.com/jsk-ros-pkg/jsk_recognition.git
+    version: master
+  pcl_msgs:
+    type: git
+    url: https://github.com/ros-perception/pcl_msgs.git
+    version: noetic-devel
+  jsk_common_msgs:
+    type: git
+    url: https://github.com/jsk-ros-pkg/jsk_common_msgs.git
+    version: master
