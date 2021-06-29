@@ -4,8 +4,8 @@
   <version>0.0.0</version>
   <description>The c1t_vesc_driver package</description>
 
-  <author email="adam.morrissett.ctr@dot.gov">Adam Morrissett</author>
   <maintainer email="carma@dot.gov">CARMA</maintainer>
+  <author>Adam Morrissett</author>
 
   <license>TODO</license>
 
