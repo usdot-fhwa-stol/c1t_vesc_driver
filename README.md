@@ -91,8 +91,8 @@ The Docker container image in this repository targets the [NVIDIA Jetson](
 https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/) platform, which currently does not support
 Ubuntu 20.04 (the targeted operating system for ROS 1 Noetic); the latest supported version is Ubuntu 18.04. Therefore,
 the ROS 1 Noetic binaries are unavailable for the Jetson computers. ROS 1 Noetic can be built from source for
-the Jetsons (which is what the Docker container does when it is built), but there are several compilications when doing
-this for an unsupported platofrm:
+the Jetsons (which is what the Docker container does when it is built), but there are several complications when doing
+this for an unsupported platform:
 
 * ROS package binaries (ones that are traditionally installed through `apt`) are unavailable. This is more subtle than
   it appears at first. What this means is that packages **and their dependencies** must be built from source.
