@@ -7,7 +7,7 @@
   <maintainer email="carma@dot.gov">CARMA</maintainer>
   <author>Adam Morrissett</author>
 
-  <license>TODO</license>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>catkin</buildtool_depend>
 
