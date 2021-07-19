@@ -1,0 +1,13 @@
+repositories:
+    vesc:
+        type: git
+        url: https://github.com/f1tenth/vesc
+        version: main
+    serial:
+        type: git
+        url: https://github.com/wjwwood/serial
+        version: master
+    ackermann_msgs:
+        type: git
+        url: https://github.com/ros-drivers/ackermann_msgs
+        version: master

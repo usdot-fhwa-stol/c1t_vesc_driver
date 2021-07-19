@@ -14,5 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-source /opt/ros/$ROS_DISTRO/setup.sh
+source /opt/ros/$ROS_DISTRO/setup.bash
+cd ~/
 catkin_make_isolated --install --only-pkg-with-deps c1t_vesc_driver -DCMAKE_BUILD_TYPE=Release

@@ -12,20 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM dustynv/ros:noetic-ros-base-l4t-r32.4.4 as setup
+FROM usdotfhwastoldev/carma-base:noetic-f1tenth-develop
 
-# Base image already has ros_base packages in this workspace
-WORKDIR /workspace/ros_catkin_ws/
-COPY . src/
-RUN src/docker/checkout.bash
-RUN src/docker/install.sh
+RUN mkdir ~/src
+COPY --chown=carma . /home/carma/src/
+RUN ~/src/docker/checkout.bash
+RUN ~/src/docker/install.sh
 
-FROM dustynv/ros:noetic-ros-base-l4t-r32.4.4
+FROM usdotfhwastoldev/carma-base:noetic-f1tenth-develop
 
 ARG BUILD_DATE="NULL"
-ARG VERSION="NULL"
 ARG VCS_REF="NULL"
+ARG VERSION="NULL"
 
-COPY --from=setup /workspace/ros_catkin_ws/install_isolated /opt/ros/$ROS_DISTRO
+LABEL org.label-schema.schema-version="1.0"
+LABEL org.label-schema.name="CARMA"
+LABEL org.label-schema.description="Binary application for the CARMA Platform"
+LABEL org.label-schema.vendor="Leidos"
+LABEL org.label-schema.version=${VERSION}
+LABEL org.label-schema.url="https://highways.dot.gov/research/research-programs/operations/CARMA"
+LABEL org.label-schema.vcs-url="https://github.com/usdot-fhwa-stol/c1t_vesc_driver"
+LABEL org.label-schema.vcs-ref=${VCS_REF}
+LABEL org.label-schema.build-date=${BUILD_DATE}
+
+COPY --from=setup /home/carma/install_isolated /opt/carma/install
 
 CMD ["roslaunch", "c1t_vesc_driver", "c1t_vesc_driver.launch"]
