@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM usdotfhwastoldev/carma-base:noetic-f1tenth-develop
+FROM usdotfhwastoldev/carma-base:noetic-f1tenth-develop as setup
 
 RUN mkdir ~/src
 COPY --chown=carma . /home/carma/src/
