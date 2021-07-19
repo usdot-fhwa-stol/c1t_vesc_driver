@@ -37,4 +37,6 @@ LABEL org.label-schema.build-date=${BUILD_DATE}
 
 COPY --from=setup /home/carma/install_isolated /opt/carma/install
 
+RUN sudo usermod -aG dialout carma
+
 CMD ["roslaunch", "c1t_vesc_driver", "c1t_vesc_driver.launch"]
