@@ -27,7 +27,8 @@
         <rosparam command="load" file="$(find c1t_vesc_driver)/config/parameters.yaml"/>
     </node>
 
-    <group ns="controller">
+    <arg name="ctrl_ns" default="controller"/>
+    <group ns="$(arg ctrl_ns)">
         <!-- Param file includes parameters for both message converter and VESC driver nodes -->
         <arg name="vesc_config" default="$(find c1t_vesc_driver)/config/vesc.yaml"/>
         <rosparam file="$(arg vesc_config)" command="load"/>
@@ -39,5 +40,24 @@
         <node name="vesc_driver" pkg="vesc_driver" type="vesc_driver_node" output="screen">
             <param name="port" value="/dev/vesc"/>
         </node>
+
+        <!-- VESC odometry publisher -->
+        <node name="vesc_to_odom" pkg="vesc_ackermann" type="vesc_to_odom_node">
+            <param name="use_servo_cmd_to_calc_angular_velocity" value="false"/>
+        </node>
+    </group>
+
+    <arg name="vhcl_ns" default="vehicle"/>
+    <group ns="$(arg vhcl_ns)">
+        <node name="twist_relay" pkg="topic_tools" type="relay_field"
+              args="$(optenv CARMA_INTR_NS)/$(arg ctrl_ns)/odom $(optenv CARMA_INTR_NS)/$(arg vhcl_ns)/twist
+              geometry_msgs/TwistStamped
+              '{header: {
+                    seq: m.header.seq,
+                    stamp: {secs: m.header.stamp.secs, nsecs: m.header.stamp.nsecs},
+                    frame_id: m.child_frame_id},
+                twist: {
+                    linear: {x: m.twist.twist.linear.x, y: m.twist.twist.linear.y, z: m.twist.twist.linear.z},
+                    angular: {x: m.twist.twist.angular.x, y: m.twist.twist.angular.y, z: m.twist.twist.angular.z}}}'"/>
     </group>
 </launch>
