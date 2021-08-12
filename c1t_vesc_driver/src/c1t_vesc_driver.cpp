@@ -60,6 +60,7 @@ void VescDriverWrapper::initialize()
   robot_status_timer_ = nh_->createTimer(ros::Duration(0.1), [this](const ros::TimerEvent& event) {
     cav_msgs::RobotEnabled msg;
 
+    msg.robot_active = this->enabled_;
     msg.robot_enabled = this->enabled_;
 
     this->robot_states_pub_.publish(msg);
